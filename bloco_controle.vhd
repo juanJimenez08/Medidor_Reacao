@@ -1,0 +1,82 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity bloco_controle is
+    port (
+        clk, rst, B      : in  std_logic;
+        fim_10s, fim_2s  : in  std_logic; -- Sinais vindos do BO
+        len, lento       : out std_logic; -- Saídas externas
+        clr_cont, inc_cont, ld_rtempo : out std_logic -- Comandos para o BO
+    );
+end bloco_controle;
+
+architecture Behavioral of bloco_controle is
+    -- Estados da FSM
+    type state_type is (IDLE, WAIT_10S, REACTION, DISPLAY, TIMEOUT);
+    signal state, next_state : state_type;
+begin
+
+    -- Processo Sequencial (Memória de Estado)
+    process(clk, rst)
+    begin
+        if rst = '1' then
+            state <= IDLE;
+        elsif rising_edge(clk) then
+            state <= next_state;
+        end if;
+    end process;
+
+    -- Processo Combinacional (Lógica de Próximo Estado e Saídas)
+    process(state, B, fim_10s, fim_2s)
+    begin
+        -- Valores padrão para evitar latches
+        len <= '0'; 
+        lento <= '0'; 
+        clr_cont <= '0'; 
+        inc_cont <= '0'; 
+        ld_rtempo <= '0';
+        next_state <= state; -- Por padrão, mantém o estado
+
+        case state is
+            when IDLE =>
+                clr_cont <= '1'; -- Zera tudo ao iniciar
+                next_state <= WAIT_10S;
+
+            when WAIT_10S =>
+                if fim_10s = '1' then
+                    -- IMPORTANTE: Zera o contador ao mudar de estado
+                    -- para começar a contar o tempo de reação do zero
+                    clr_cont <= '1'; 
+                    next_state <= REACTION;
+                else 
+                    inc_cont <= '1'; -- Incrementa contador de espera
+                    next_state <= WAIT_10S;
+                end if;
+
+            when REACTION =>
+                len <= '1'; -- Acende a lâmpada
+                if B = '1' then 
+                    -- Usuário apertou o botão
+                    ld_rtempo <= '1'; -- Salva o tempo
+                    next_state <= DISPLAY;
+                elsif fim_2s = '1' then 
+                    -- Estourou o tempo (lento demais)
+                    ld_rtempo <= '1'; -- Salva o tempo (máximo)
+                    next_state <= TIMEOUT;
+                else
+                    inc_cont <= '1'; -- Continua contando tempo de reação
+                    next_state <= REACTION;
+                end if;
+
+            when DISPLAY =>
+                len <= '0'; 
+                -- Fica aqui exibindo o resultado até o reset
+                next_state <= DISPLAY;
+
+            when TIMEOUT =>
+                lento <= '1'; -- Indica que foi lento
+                -- Fica aqui até o reset
+                next_state <= TIMEOUT;
+        end case;
+    end process;
+end Behavioral;

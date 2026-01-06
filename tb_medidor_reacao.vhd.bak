@@ -1,0 +1,124 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_TEXTIO.ALL; -- Necessário para ler/escrever std_logic
+use STD.TEXTIO.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity tb_medidor_reacao is
+end tb_medidor_reacao;
+
+architecture Behavioral of tb_medidor_reacao is
+
+    -- Componente do Projeto
+    component medidor_reacao_top
+        port (
+            clk, rst, B : in  std_logic;
+            len, lento  : out std_logic;
+            rtempo      : out std_logic_vector(11 downto 0)
+        );
+    end component;
+
+    -- Sinais
+    signal clk_tb   : std_logic := '0';
+    signal rst_tb   : std_logic := '0';
+    signal B_tb     : std_logic := '0';
+    signal len_tb   : std_logic;
+    signal lento_tb : std_logic;
+    signal rtempo_tb: std_logic_vector(11 downto 0);
+
+    -- Clock: 2.5 kHz = 400 us
+    constant CLK_PERIOD : time := 400 us;
+
+    -- Arquivos (Ajuste o caminho se necessário, ou deixe apenas o nome para rodar na pasta simulation)
+    file arquivo_entradas : text open read_mode is "entradas.txt";
+    file arquivo_saidas   : text open write_mode is "saidas.txt";
+
+begin
+
+    -- Conecta o DUT (Device Under Test)
+    UUT: medidor_reacao_top port map (
+        clk    => clk_tb,
+        rst    => rst_tb,
+        B      => B_tb,
+        len    => len_tb,
+        lento  => lento_tb,
+        rtempo => rtempo_tb
+    );
+
+    -- Processo Gerador de Clock (Separado, pois precisa rodar para sempre)
+    process
+    begin
+        clk_tb <= '0'; wait for CLK_PERIOD/2;
+        clk_tb <= '1'; wait for CLK_PERIOD/2;
+    end process;
+
+    -- Processo Principal (Estilo Leitura -> Aplica -> Espera -> Escreve)
+    process
+        variable linha_leitura : line;
+        variable linha_escrita : line;
+        
+        -- Variáveis para ler do arquivo
+        variable var_rst    : std_logic;
+        variable var_B      : std_logic;
+        variable var_ciclos : integer;
+        variable espaco     : character;
+        
+    begin
+        -- Cabeçalho no arquivo de saída (Opcional, para organização)
+        write(linha_escrita, string'("Len | Lento | RTempo (Dec)"));
+        writeline(arquivo_saidas, linha_escrita);
+
+        wait for 100 ns; -- Estabilização inicial
+
+        while not endfile(arquivo_entradas) loop
+            readline(arquivo_entradas, linha_leitura);
+
+            -- Verifica se a linha não está vazia
+            if linha_leitura'length > 0 then
+
+                -- 1. LER (Rst, B, Ciclos)
+                read(linha_leitura, var_rst);
+                read(linha_leitura, espaco);
+                read(linha_leitura, var_B);
+                read(linha_leitura, espaco);
+                read(linha_leitura, var_ciclos); -- Lê o numero de clocks para esperar
+
+                -- 2. ENVIAR PARA O CIRCUITO
+                -- Sincroniza com a borda de descida para evitar erros
+                wait until falling_edge(clk_tb); 
+                rst_tb <= var_rst;
+                B_tb   <= var_B;
+
+                -- 3. ESPERAR (Substitui o "wait for 100 ns" pelo tempo exato do clock)
+                -- O sistema precisa de clocks para processar (contar tempo)
+                for i in 1 to var_ciclos loop
+                    wait until rising_edge(clk_tb);
+                end loop;
+
+                -- 4. ESCREVER TUDO (Grava o estado FINAL após passar os ciclos)
+                
+                -- Escreve Len
+                write(linha_escrita, len_tb);
+                write(linha_escrita, string'(" |   "));
+
+                -- Escreve Lento
+                write(linha_escrita, lento_tb);
+                write(linha_escrita, string'("   |      "));
+
+                -- Escreve Rtempo (Convertido para Inteiro para facilitar leitura)
+                write(linha_escrita, to_integer(unsigned(rtempo_tb)));
+
+                -- Salva no arquivo
+                writeline(arquivo_saidas, linha_escrita);
+
+            end if;
+        end loop;
+
+        file_close(arquivo_entradas);
+        file_close(arquivo_saidas);
+
+        assert false report "Simulacao Concluida! Verifique saidas.txt" severity failure;
+        wait;
+    end process;
+
+end Behavioral;

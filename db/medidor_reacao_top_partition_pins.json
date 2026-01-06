@@ -1,0 +1,77 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "len",
+					"strict" : false
+				},
+				{
+					"name" : "lento",
+					"strict" : false
+				},
+				{
+					"name" : "rtempo[0]",
+					"strict" : false
+				},
+				{
+					"name" : "rtempo[1]",
+					"strict" : false
+				},
+				{
+					"name" : "rtempo[2]",
+					"strict" : false
+				},
+				{
+					"name" : "rtempo[3]",
+					"strict" : false
+				},
+				{
+					"name" : "rtempo[4]",
+					"strict" : false
+				},
+				{
+					"name" : "rtempo[5]",
+					"strict" : false
+				},
+				{
+					"name" : "rtempo[6]",
+					"strict" : false
+				},
+				{
+					"name" : "rtempo[7]",
+					"strict" : false
+				},
+				{
+					"name" : "rtempo[8]",
+					"strict" : false
+				},
+				{
+					"name" : "rtempo[9]",
+					"strict" : false
+				},
+				{
+					"name" : "rtempo[10]",
+					"strict" : false
+				},
+				{
+					"name" : "rtempo[11]",
+					"strict" : false
+				},
+				{
+					"name" : "B",
+					"strict" : false
+				},
+				{
+					"name" : "clk",
+					"strict" : false
+				},
+				{
+					"name" : "rst",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

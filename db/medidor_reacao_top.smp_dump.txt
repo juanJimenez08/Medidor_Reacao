@@ -1,0 +1,8 @@
+
+State Machine - |medidor_reacao_top|bloco_controle:U_BC|state
+Name state.TIMEOUT state.DISPLAY state.REACTION state.WAIT_10S state.IDLE 
+state.IDLE 0 0 0 0 0 
+state.WAIT_10S 0 0 0 1 1 
+state.REACTION 0 0 1 0 1 
+state.DISPLAY 0 1 0 0 1 
+state.TIMEOUT 1 0 0 0 1 
