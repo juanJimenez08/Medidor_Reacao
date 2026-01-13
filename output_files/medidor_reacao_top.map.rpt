@@ -1,5 +1,5 @@
 Analysis & Synthesis report for medidor_reacao_top
-Mon Jan  5 21:48:09 2026
+Mon Jan 12 22:28:41 2026
 Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
 
 
@@ -47,14 +47,14 @@ on the Quartus Prime software download page.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Mon Jan  5 21:48:09 2026           ;
+; Analysis & Synthesis Status     ; Successful - Mon Jan 12 22:28:41 2026           ;
 ; Quartus Prime Version           ; 25.1std.0 Build 1129 10/21/2025 SC Lite Edition ;
 ; Revision Name                   ; medidor_reacao_top                              ;
 ; Top-level Entity Name           ; medidor_reacao_top                              ;
 ; Family                          ; Cyclone V                                       ;
 ; Logic utilization (in ALMs)     ; N/A                                             ;
-; Total registers                 ; 32                                              ;
-; Total pins                      ; 17                                              ;
+; Total registers                 ; 20                                              ;
+; Total pins                      ; 21                                              ;
 ; Total virtual pins              ; 0                                               ;
 ; Total block memory bits         ; 0                                               ;
 ; Total DSP Blocks                ; 0                                               ;
@@ -188,25 +188,25 @@ on the Quartus Prime software download page.
 +---------------------------------------------+-----------+
 ; Resource                                    ; Usage     ;
 +---------------------------------------------+-----------+
-; Estimate of Logic utilization (ALMs needed) ; 21        ;
+; Estimate of Logic utilization (ALMs needed) ; 16        ;
 ;                                             ;           ;
-; Combinational ALUT usage for logic          ; 30        ;
+; Combinational ALUT usage for logic          ; 28        ;
 ;     -- 7 input functions                    ; 0         ;
-;     -- 6 input functions                    ; 4         ;
+;     -- 6 input functions                    ; 3         ;
 ;     -- 5 input functions                    ; 5         ;
 ;     -- 4 input functions                    ; 2         ;
-;     -- <=3 input functions                  ; 19        ;
+;     -- <=3 input functions                  ; 18        ;
 ;                                             ;           ;
-; Dedicated logic registers                   ; 32        ;
+; Dedicated logic registers                   ; 20        ;
 ;                                             ;           ;
-; I/O pins                                    ; 17        ;
+; I/O pins                                    ; 21        ;
 ;                                             ;           ;
 ; Total DSP Blocks                            ; 0         ;
 ;                                             ;           ;
 ; Maximum fan-out node                        ; clk~input ;
-; Maximum fan-out                             ; 32        ;
-; Total fan-out                               ; 239       ;
-; Average fan-out                             ; 2.49      ;
+; Maximum fan-out                             ; 20        ;
+; Total fan-out                               ; 202       ;
+; Average fan-out                             ; 2.24      ;
 +---------------------------------------------+-----------+
 
 
@@ -215,9 +215,9 @@ on the Quartus Prime software download page.
 +-----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------+--------------------+--------------+
 ; Compilation Hierarchy Node  ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                  ; Entity Name        ; Library Name ;
 +-----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------+--------------------+--------------+
-; |medidor_reacao_top         ; 30 (0)              ; 32 (0)                    ; 0                 ; 0          ; 17   ; 0            ; |medidor_reacao_top                                  ; medidor_reacao_top ; work         ;
-;    |bloco_controle:U_BC|    ; 6 (6)               ; 4 (4)                     ; 0                 ; 0          ; 0    ; 0            ; |medidor_reacao_top|bloco_controle:U_BC              ; bloco_controle     ; work         ;
-;    |bloco_operacional:U_BO| ; 24 (8)              ; 28 (28)                   ; 0                 ; 0          ; 0    ; 0            ; |medidor_reacao_top|bloco_operacional:U_BO           ; bloco_operacional  ; work         ;
+; |medidor_reacao_top         ; 28 (0)              ; 20 (0)                    ; 0                 ; 0          ; 21   ; 0            ; |medidor_reacao_top                                  ; medidor_reacao_top ; work         ;
+;    |bloco_controle:U_BC|    ; 4 (4)               ; 4 (4)                     ; 0                 ; 0          ; 0    ; 0            ; |medidor_reacao_top|bloco_controle:U_BC              ; bloco_controle     ; work         ;
+;    |bloco_operacional:U_BO| ; 24 (8)              ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |medidor_reacao_top|bloco_operacional:U_BO           ; bloco_operacional  ; work         ;
 ;       |ALU:U_ALU|           ; 16 (16)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |medidor_reacao_top|bloco_operacional:U_BO|ALU:U_ALU ; ALU                ; work         ;
 +-----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------+--------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
@@ -252,23 +252,23 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 32    ;
+; Total registers                              ; 20    ;
 ; Number of registers using Synchronous Clear  ; 16    ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 4     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 28    ;
+; Number of registers using Clock Enable       ; 16    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                            ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                  ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------+
-; 3:1                ; 16 bits   ; 32 LEs        ; 0 LEs                ; 32 LEs                 ; Yes        ; |medidor_reacao_top|bloco_operacional:U_BO|contador_reg[15] ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
+; 3:1                ; 16 bits   ; 32 LEs        ; 0 LEs                ; 32 LEs                 ; Yes        ; |medidor_reacao_top|bloco_operacional:U_BO|contador_reg[0] ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------+
@@ -289,22 +289,21 @@ Encoding Type:  One-Hot
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 32                          ;
+; arriav_ff             ; 20                          ;
 ;     CLR               ; 4                           ;
-;     ENA               ; 12                          ;
 ;     ENA SCLR          ; 16                          ;
-; arriav_lcell_comb     ; 30                          ;
+; arriav_lcell_comb     ; 28                          ;
 ;     arith             ; 16                          ;
 ;         1 data inputs ; 16                          ;
-;     normal            ; 14                          ;
-;         3 data inputs ; 3                           ;
+;     normal            ; 12                          ;
+;         3 data inputs ; 2                           ;
 ;         4 data inputs ; 2                           ;
 ;         5 data inputs ; 5                           ;
-;         6 data inputs ; 4                           ;
-; boundary_port         ; 17                          ;
+;         6 data inputs ; 3                           ;
+; boundary_port         ; 21                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 3.00                        ;
-; Average LUT depth     ; 1.95                        ;
+; Average LUT depth     ; 2.28                        ;
 +-----------------------+-----------------------------+
 
 
@@ -323,7 +322,7 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
-    Info: Processing started: Mon Jan  5 21:47:59 2026
+    Info: Processing started: Mon Jan 12 22:28:32 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off medidor_reacao_top -c medidor_reacao_top
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 8 of the 8 processors detected
@@ -339,22 +338,25 @@ Info (12021): Found 2 design units, including 1 entities, in source file bloco_o
 Info (12021): Found 2 design units, including 1 entities, in source file bloco_controle.vhd
     Info (12022): Found design unit 1: bloco_controle-Behavioral File: C:/Users/juane/AppData/Local/quartus/bloco_controle.vhd Line: 13
     Info (12023): Found entity 1: bloco_controle File: C:/Users/juane/AppData/Local/quartus/bloco_controle.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file tb_medidor_reacao.vhd
+    Info (12022): Found design unit 1: tb_medidor_reacao-Behavioral File: C:/Users/juane/AppData/Local/quartus/tb_medidor_reacao.vhd Line: 10
+    Info (12023): Found entity 1: tb_medidor_reacao File: C:/Users/juane/AppData/Local/quartus/tb_medidor_reacao.vhd Line: 7
 Info (12127): Elaborating entity "medidor_reacao_top" for the top level hierarchy
 Info (12128): Elaborating entity "bloco_controle" for hierarchy "bloco_controle:U_BC" File: C:/Users/juane/AppData/Local/quartus/medidor_reacao_top.vhd Line: 25
 Info (12128): Elaborating entity "bloco_operacional" for hierarchy "bloco_operacional:U_BO" File: C:/Users/juane/AppData/Local/quartus/medidor_reacao_top.vhd Line: 43
-Info (12128): Elaborating entity "ALU" for hierarchy "bloco_operacional:U_BO|ALU:U_ALU" File: C:/Users/juane/AppData/Local/quartus/bloco_operacional.vhd Line: 39
+Info (12128): Elaborating entity "ALU" for hierarchy "bloco_operacional:U_BO|ALU:U_ALU" File: C:/Users/juane/AppData/Local/quartus/bloco_operacional.vhd Line: 36
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 1 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 60 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 50 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 3 input pins
-    Info (21059): Implemented 14 output pins
-    Info (21061): Implemented 43 logic cells
+    Info (21059): Implemented 18 output pins
+    Info (21061): Implemented 29 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
     Info: Peak virtual memory: 4959 megabytes
-    Info: Processing ended: Mon Jan  5 21:48:09 2026
-    Info: Elapsed time: 00:00:10
-    Info: Total CPU time (on all processors): 00:00:17
+    Info: Processing ended: Mon Jan 12 22:28:41 2026
+    Info: Elapsed time: 00:00:09
+    Info: Total CPU time (on all processors): 00:00:18
 
 

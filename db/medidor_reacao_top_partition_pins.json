@@ -60,6 +60,22 @@
 					"strict" : false
 				},
 				{
+					"name" : "rtempo[12]",
+					"strict" : false
+				},
+				{
+					"name" : "rtempo[13]",
+					"strict" : false
+				},
+				{
+					"name" : "rtempo[14]",
+					"strict" : false
+				},
+				{
+					"name" : "rtempo[15]",
+					"strict" : false
+				},
+				{
 					"name" : "B",
 					"strict" : false
 				},

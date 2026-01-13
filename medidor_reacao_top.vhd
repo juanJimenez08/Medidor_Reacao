@@ -5,7 +5,7 @@ entity medidor_reacao_top is
     port (
         clk, rst, B : in  std_logic;
         len, lento  : out std_logic;
-        rtempo      : out std_logic_vector(11 downto 0)
+        rtempo      : out std_logic_vector(15 downto 0)
     );
 end medidor_reacao_top;
 
@@ -28,12 +28,12 @@ begin
             rst       => rst, 
             B         => B,
             -- Entradas de Status vindas do BO
-            fim_10s   => s_f10, 
-            fim_2s    => s_f2,
+            f_10s   => s_f10, 
+            f_2s    => s_f2,
             -- Saídas de Controle para o mundo externo
             len       => len, 
             lento     => lento,
-            -- Saídas de Controle para o BO
+            -- Saidas de Controle para o BO
             clr_cont  => s_clr, 
             inc_cont  => s_inc, 
             ld_rtempo => s_ld
@@ -47,10 +47,10 @@ begin
             clr_cont   => s_clr, 
             inc_cont   => s_inc, 
             ld_rtempo  => s_ld,
-            -- Saídas de Status para o BC
-            fim_10s    => s_f10, 
-            fim_2s     => s_f2,
-            -- Saída de Dados para o mundo externo
+            -- Saidas de Status para o BC
+            f_10s    => s_f10, 
+            f_2s     => s_f2,
+            -- Saida de Dados para o mundo externo
             rtempo_out => rtempo
         );
 

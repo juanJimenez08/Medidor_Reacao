@@ -1,11 +1,11 @@
-Analysis & Synthesis Status : Successful - Mon Jan  5 21:48:09 2026
+Analysis & Synthesis Status : Successful - Mon Jan 12 22:28:41 2026
 Quartus Prime Version : 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
 Revision Name : medidor_reacao_top
 Top-level Entity Name : medidor_reacao_top
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 32
-Total pins : 17
+Total registers : 20
+Total pins : 21
 Total virtual pins : 0
 Total block memory bits : 0
 Total DSP Blocks : 0

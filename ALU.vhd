@@ -16,26 +16,25 @@ end ALU;
 architecture Behavioral of ALU is
 begin
     process(A, B, Sel)
-        -- Variáveis para cálculo imediato dentro do processo
         variable A_uns, B_uns : unsigned(16 downto 0);
         variable Res_v        : unsigned(16 downto 0);
     begin
-        -- 1. Prepara as entradas (converte para unsigned de 17 bits para pegar o Carry)
+        -- 1. Prepara as entradas 
         A_uns := unsigned('0' & A);
         B_uns := unsigned('0' & B);
         
-        -- Valores padrão
+        -- Valores padrao
         Res_v := (others => '0');
         C <= '0';
         O <= '0';
 
-        -- 2. Seleção das Operações
+        -- 2. Seleção das Operacoes
         case Sel is
             when "0000" => -- SOMA
                 Res_v := A_uns + B_uns;
                 C <= Res_v(16); -- Bit 17 é o Carry
 
-            when "0001" => -- SUBTRAÇÃO
+            when "0001" => -- SUBTRACAO
                 Res_v := A_uns - B_uns;
                 C <= Res_v(16);
 
@@ -56,7 +55,7 @@ begin
                 Res_v(15 downto 0) := unsigned('0' & A(15 downto 1));
                 C <= A(0);
 
-            when "0111" => -- INCREMENTO (Usado pelo contador)
+            when "0111" => -- INCREMENTO 
                 Res_v := A_uns + 1;
                 C <= Res_v(16);
 
@@ -68,7 +67,7 @@ begin
                 Res_v := (others => '0');
         end case;
 
-        -- 3. Saída do Resultado (16 bits)
+        -- 3. Saida do Resultado (16 bits)
         Resultado <= std_logic_vector(Res_v(15 downto 0));
 
     end process;
